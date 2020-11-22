@@ -20,15 +20,15 @@ defmodule Teufel.Item.Weapon do
         }
 
   defstruct Item.common_fields() ++
-            [
-            type: :weapon,
-            attack_min: 1,
-            attack_max: 2,
-            scaling_factor: 1,
-            prefix: nil,
-            suffix: nil,
-            rarity: %Rarity{}
-            ]
+              [
+                type: :weapon,
+                attack_min: 1,
+                attack_max: 2,
+                scaling_factor: 1,
+                prefix: nil,
+                suffix: nil,
+                rarity: %Rarity{}
+              ]
 
   def from_map(map) when is_map(map) do
     struct(%__MODULE__{}, map)
@@ -47,23 +47,23 @@ defmodule Teufel.Item.Weapon do
     {calculated_attack_min, calculated_attack_max}
   end
 
-  @spec to_display(t()) :: map()
+  @spec to_display(t()) :: list(tuple())
   def to_display(
         %__MODULE__{
-          level: level,
+          level: level
         } = weapon
       ) do
     {calculated_attack_min, calculated_attack_max} = calculate_attack(weapon)
 
-    %{
-      "Name" => to_name(weapon),
-      "Level" => level,
-      "Attack" => "#{calculated_attack_min}-#{calculated_attack_max}"
-    }
+    [
+      {"Name", to_name(weapon)},
+      {"Level", level},
+      {"Attack", "#{calculated_attack_min}-#{calculated_attack_max}"}
+    ]
   end
 
   defp to_name(%__MODULE__{rarity: rarity, prefix: prefix, name: name, suffix: suffix}) do
-    to_name(rarity) <> to_name(prefix) <> name <> to_name(suffix)
+    (to_name(rarity) <> to_name(prefix) <> name <> to_name(suffix))
     |> String.trim()
   end
 

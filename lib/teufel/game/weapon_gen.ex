@@ -32,8 +32,8 @@ defmodule Teufel.Game.WeaponGen do
     GenServer.call(__MODULE__, {:generate, opts})
   end
 
-  def list_suffixes() do
-    GenServer.call(__MODULE__, {:list_suffixes})
+  def list_config() do
+    GenServer.call(__MODULE__, {:list_config})
   end
 
   # Server
@@ -45,11 +45,15 @@ defmodule Teufel.Game.WeaponGen do
 
   defp configure() do
     config = Application.get_env(:teufel, :weapons)
-    weapons = Keyword.get(config, :weapons)
-    |> Enum.map(&Weapon.from_map/1)
+
+    weapons =
+      Keyword.get(config, :weapons)
+      |> Enum.map(&Weapon.from_map/1)
+
     prefixes =
       Keyword.get(config, :prefixes)
       |> Enum.map(&Prefix.from_map/1)
+
     suffixes =
       Keyword.get(config, :suffixes)
       |> Enum.map(&Suffix.from_map/1)
@@ -83,8 +87,8 @@ defmodule Teufel.Game.WeaponGen do
   end
 
   @impl true
-  def handle_call({:list_suffixes}, _from, %{suffixes: suffixes} = config) do
-    {:reply, suffixes, config}
+  def handle_call({:list_config}, _from, config) do
+    {:reply, config, config}
   end
 
   @spec fetch_weapon(Weapon.t(), atom()) :: Weapon.t()

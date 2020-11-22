@@ -1,0 +1,26 @@
+<h1>Listing Weapons</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Attack Max</th>
+      <th>Attack Min</th>
+      <th>Scaling Factor</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for weapon <- @weapon_config.weapons do %>
+    <tr>
+      <td><%= weapon.name %></td>
+      <td><%= weapon.attack_max %></td>
+      <td><%= weapon.attack_min %></td>
+      <td><%= weapon.scaling_factor %></td>
+      <td><span><%= link "Generate", to: Routes.weapon_index_path(@conn, :new) %>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Weapon", to: Routes.weapon_index_path(@conn, :new) %></span>

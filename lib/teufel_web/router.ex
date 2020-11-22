@@ -18,6 +18,9 @@ defmodule TeufelWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
+
+    get "/weapons", WeaponController, :index
+    live "/weapons/new", WeaponLive.Index, :new
   end
 
   # Other scopes may use custom stacks.

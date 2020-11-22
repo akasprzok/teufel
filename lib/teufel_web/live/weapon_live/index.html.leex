@@ -1,0 +1,10 @@
+<h1>Generate Weapon</h1>
+<table>
+  <%= for {k, v} <- @weapon do %>
+    <tr>
+      <td><%= k %></td>
+      <td><%= v %></td>
+    </tr>
+  <% end %>
+</table>
+<button phx-click="generate">Generate</button>

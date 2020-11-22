@@ -10,16 +10,16 @@ defmodule Teufel.WeaponGenTest do
 
   test "generate specific type" do
     assert %Weapon{
-              type: :axe,
-              name: "Axe"
-            } = WeaponGen.generate(type: :axe)
+             type: :axe,
+             name: "Axe"
+           } = WeaponGen.generate(type: :axe)
   end
 
   test "generate specific level" do
     level = 69
 
     assert %Weapon{
-              level: level
-            } = WeaponGen.generate(level: level)
+             level: level
+           } = WeaponGen.generate(level: level)
   end
 end

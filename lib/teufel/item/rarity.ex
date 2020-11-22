@@ -4,15 +4,14 @@ defmodule Teufel.Item.Rarity do
   """
 
   @type t :: %__MODULE__{
-    name: String.t(),
-    weight: integer()
-  }
+          name: String.t(),
+          weight: integer()
+        }
 
   defstruct name: "",
-    weight: 10
+            weight: 10
 
   def from_map(map) when is_map(map) do
     struct(%__MODULE__{}, map)
   end
-
 end
