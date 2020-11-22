@@ -3,6 +3,7 @@ defmodule Teufel.Item.Weapon do
   Everything weapons!
   """
 
+  alias Teufel.Item
   alias Teufel.Item.Weapon.{Prefix, Suffix}
   alias Teufel.Item.Rarity
 
@@ -18,15 +19,16 @@ defmodule Teufel.Item.Weapon do
           rarity: Rarity.t()
         }
 
-  defstruct name: "Weapon",
+  defstruct Item.common_fields() ++
+            [
             type: :weapon,
-            level: 0,
             attack_min: 1,
             attack_max: 2,
             scaling_factor: 1,
             prefix: nil,
             suffix: nil,
             rarity: %Rarity{}
+            ]
 
   def from_map(map) when is_map(map) do
     struct(%__MODULE__{}, map)
