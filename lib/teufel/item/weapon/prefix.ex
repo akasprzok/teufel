@@ -19,4 +19,8 @@ defmodule Teufel.Item.Weapon.Prefix do
   def from_map(map) when is_map(map) do
     struct(%__MODULE__{}, map)
   end
+
+  def to_display(%__MODULE__{stat: stat, stat_min: stat_min, stat_max: stat_max}, level, scaling_factor) do
+
+  end
 end

@@ -15,7 +15,6 @@ defmodule TeufelWeb.WeaponLive.Index do
   @impl true
   def handle_event("generate", _, socket) do
     weapon = WeaponGen.generate() |> Weapon.to_display()
-    Logger.debug("Generated weapon: #{inspect(weapon)}")
     {:noreply, assign(socket, :weapon, weapon)}
   end
 end

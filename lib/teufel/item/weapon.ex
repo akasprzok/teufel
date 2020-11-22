@@ -50,7 +50,9 @@ defmodule Teufel.Item.Weapon do
   @spec to_display(t()) :: list(tuple())
   def to_display(
         %__MODULE__{
-          level: level
+          level: level,
+          suffix: suffix,
+          scaling_factor: scaling_factor
         } = weapon
       ) do
     {calculated_attack_min, calculated_attack_max} = calculate_attack(weapon)
@@ -59,7 +61,7 @@ defmodule Teufel.Item.Weapon do
       {"Name", to_name(weapon)},
       {"Level", level},
       {"Attack", "#{calculated_attack_min}-#{calculated_attack_max}"}
-    ]
+    ] ++ Suffix.to_display(suffix, scaling_factor, level)
   end
 
   defp to_name(%__MODULE__{rarity: rarity, prefix: prefix, name: name, suffix: suffix}) do
