@@ -3,7 +3,6 @@ defmodule Teufel.Item.Weapon do
   Everything weapons!
   """
 
-  alias Teufel.Item
   alias Teufel.Item.Weapon.{Prefix, Suffix}
   alias Teufel.Item.Rarity
 
@@ -19,16 +18,15 @@ defmodule Teufel.Item.Weapon do
           rarity: Rarity.t()
         }
 
-  defstruct Item.common_fields() ++
-              [
-                type: :weapon,
-                attack_min: 1,
-                attack_max: 2,
-                scaling_factor: 1,
-                prefix: nil,
-                suffix: nil,
-                rarity: %Rarity{}
-              ]
+  defstruct name: "",
+            level: 0,
+            type: :weapon,
+            attack_min: 1,
+            attack_max: 2,
+            scaling_factor: 1,
+            prefix: nil,
+            suffix: nil,
+            rarity: %Rarity{}
 
   def from_map(map) when is_map(map) do
     struct(%__MODULE__{}, map)
@@ -47,41 +45,44 @@ defmodule Teufel.Item.Weapon do
     {calculated_attack_min, calculated_attack_max}
   end
 
-  @spec to_display(t()) :: list(tuple())
-  def to_display(
-        %__MODULE__{
-          level: level,
-          suffix: suffix,
-          scaling_factor: scaling_factor
-        } = weapon
-      ) do
-    {calculated_attack_min, calculated_attack_max} = calculate_attack(weapon)
+  defimpl Teufel.Item do
+    alias Teufel.Item.Weapon
 
-    [
-      {"Name", to_name(weapon)},
-      {"Level", level},
-      {"Attack", "#{calculated_attack_min}-#{calculated_attack_max}"}
-    ] ++ Suffix.to_display(suffix, scaling_factor, level)
-  end
+    def to_display(
+          %Weapon{
+            level: level,
+            suffix: suffix,
+            scaling_factor: scaling_factor
+          } = weapon
+        ) do
+      {calculated_attack_min, calculated_attack_max} = Weapon.calculate_attack(weapon)
 
-  defp to_name(%__MODULE__{rarity: rarity, prefix: prefix, name: name, suffix: suffix}) do
-    (to_name(rarity) <> to_name(prefix) <> name <> to_name(suffix))
-    |> String.trim()
-  end
+      [
+        {"Name", to_name(weapon)},
+        {"Level", level},
+        {"Attack", "#{calculated_attack_min}-#{calculated_attack_max}"}
+      ] ++ Suffix.to_display(suffix, scaling_factor, level)
+    end
 
-  defp to_name(nil) do
-    ""
-  end
+    defp to_name(%Weapon{rarity: rarity, prefix: prefix, name: name, suffix: suffix}) do
+      (to_name(rarity) <> to_name(prefix) <> name <> to_name(suffix))
+      |> String.trim()
+    end
 
-  defp to_name(%Prefix{name: name}) do
-    name <> " "
-  end
+    defp to_name(nil) do
+      ""
+    end
 
-  defp to_name(%Suffix{name: name}) do
-    " of " <> name
-  end
+    defp to_name(%Prefix{name: name}) do
+      name <> " "
+    end
 
-  defp to_name(%Rarity{name: name}) do
-    name <> " "
+    defp to_name(%Suffix{name: name}) do
+      " of " <> name
+    end
+
+    defp to_name(%Rarity{name: name}) do
+      name <> " "
+    end
   end
 end

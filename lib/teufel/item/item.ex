@@ -1,8 +1,4 @@
-defmodule Teufel.Item do
-  def common_fields do
-    [
-      name: "",
-      level: 0
-    ]
-  end
+defprotocol Teufel.Item do
+  @spec to_display(t()) :: list(tuple())
+  def to_display(item)
 end

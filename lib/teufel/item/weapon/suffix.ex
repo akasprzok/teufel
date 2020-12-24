@@ -29,10 +29,12 @@ defmodule Teufel.Item.Weapon.Suffix do
       {stat_name(stat), "#{stat_min}-#{stat_max}"}
     ]
   end
-  def calculate_stat(%__MODULE__{
-        stat_min: stat_min,
-        stat_max: stat_max
-  },
+
+  def calculate_stat(
+        %__MODULE__{
+          stat_min: stat_min,
+          stat_max: stat_max
+        },
         scaling_factor,
         level
       ) do

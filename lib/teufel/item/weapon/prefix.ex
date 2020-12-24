@@ -20,7 +20,16 @@ defmodule Teufel.Item.Weapon.Prefix do
     struct(%__MODULE__{}, map)
   end
 
-  def to_display(%__MODULE__{stat: stat, stat_min: stat_min, stat_max: stat_max}, level, scaling_factor) do
+  defimpl Teufel.Item do
+    alias Teufel.Item.Weapon.Prefix
 
+    def to_display(%Prefix{name: name, stat_min: stat_min, stat_max: stat_max, stat: stat}, level \\ 0) do
+      [
+        {"Name", name},
+        {"Level", level},
+        {"Stat", stat},
+        {"Modifier", "#{stat_min}-#{stat_max}"}
+      ]
+    end
   end
 end
