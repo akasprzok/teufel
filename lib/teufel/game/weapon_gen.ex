@@ -7,8 +7,8 @@ defmodule Teufel.Game.WeaponGen do
 
   use GenServer
 
-  alias Teufel.Item.Weapon
-  alias Teufel.Item.Weapon.{Prefix, Suffix}
+  alias Teufel.Weapon
+  alias Teufel.Weapon.{Prefix, Suffix}
 
   # Client
 

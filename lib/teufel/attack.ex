@@ -1,8 +1,8 @@
 defmodule Teufel.Attack do
-  defstruct damages: %{}
+  defstruct damages: []
 
   @type t :: %__MODULE__{
-    damages: %{}
+    damages: []
   }
 
   defimpl Enumerable do

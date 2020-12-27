@@ -1,4 +1,4 @@
-defmodule Teufel.Item.Weapon.Suffix do
+defmodule Teufel.Weapon.Suffix do
   @moduledoc """
   A weapon can have a suffix that gives it additional stats/abilities.
   """

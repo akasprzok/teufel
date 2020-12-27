@@ -1,9 +1,9 @@
-defmodule Teufel.Item.Weapon do
+defmodule Teufel.Weapon do
   @moduledoc """
   Everything weapons!
   """
 
-  alias Teufel.Item.Weapon.{Prefix, Suffix}
+  alias Teufel.Weapon.{Prefix, Suffix}
   alias Teufel.Item.Rarity
 
   @type t :: %__MODULE__{
@@ -45,8 +45,8 @@ defmodule Teufel.Item.Weapon do
     {calculated_attack_min, calculated_attack_max}
   end
 
-  defimpl Teufel.Item do
-    alias Teufel.Item.Weapon
+  defimpl Teufel.Entity do
+    alias Teufel.Weapon
 
     def to_display(
           %Weapon{

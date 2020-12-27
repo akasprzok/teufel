@@ -1,7 +1,7 @@
 defmodule Teufel.WeaponGenTest do
   use ExUnit.Case
 
-  alias Teufel.Item.Weapon
+  alias Teufel.Weapon
   alias Teufel.Game.WeaponGen
 
   test "generate random weapon" do

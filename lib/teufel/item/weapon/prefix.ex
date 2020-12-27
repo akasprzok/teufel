@@ -1,4 +1,4 @@
-defmodule Teufel.Item.Weapon.Prefix do
+defmodule Teufel.Weapon.Prefix do
   @moduledoc """
   A weapon can have a prefix that gives it additional stats/abilities.
   """
@@ -20,8 +20,8 @@ defmodule Teufel.Item.Weapon.Prefix do
     struct(%__MODULE__{}, map)
   end
 
-  defimpl Teufel.Item do
-    alias Teufel.Item.Weapon.Prefix
+  defimpl Teufel.Entity do
+    alias Teufel.Weapon.Prefix
 
     def to_display(%Prefix{name: name, stat_min: stat_min, stat_max: stat_max, stat: stat}, level \\ 0) do
       [
