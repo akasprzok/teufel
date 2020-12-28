@@ -4,8 +4,7 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Attack Max</th>
-      <th>Attack Min</th>
+      <th>Attack</th>
       <th>Scaling Factor</th>
       <th></th>
     </tr>
@@ -14,8 +13,6 @@
 <%= for weapon <- @weapon_config.weapons do %>
     <tr>
       <td><%= weapon.name %></td>
-      <td><%= weapon.attack_max %></td>
-      <td><%= weapon.attack_min %></td>
       <td><%= weapon.scaling_factor %></td>
       <td><span><%= link "Generate", to: Routes.weapon_index_path(@conn, :new) %>
     </tr>

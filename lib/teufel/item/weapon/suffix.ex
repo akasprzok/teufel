@@ -6,45 +6,22 @@ defmodule Teufel.Weapon.Suffix do
 
   @type t :: %__MODULE__{
           name: String.t(),
-          stat_min: float(),
-          stat_max: float(),
-          stat: stat()
+          stat: {stat(), Range.t()}
         }
 
   defstruct name: "Strength",
-            stat_min: 1,
-            stat_max: 2,
-            stat: :strength
+            stat: {:strength, 1..2}
 
   def from_map(map) when is_map(map) do
     struct(%__MODULE__{}, map)
   end
 
-  def to_display(nil, _scaling_factor, _level), do: []
+  defimpl Teufel.Entity do
+    alias Teufel.Weapon.Prefix
 
-  def to_display(%__MODULE__{stat: stat} = suffix, scaling_factor, level) do
-    {stat_min, stat_max} = calculate_stat(suffix, scaling_factor, level)
-
-    [
-      {stat_name(stat), "#{stat_min}-#{stat_max}"}
-    ]
-  end
-
-  def calculate_stat(
-        %__MODULE__{
-          stat_min: stat_min,
-          stat_max: stat_max
-        },
-        scaling_factor,
-        level
-      ) do
-    calculated_stat_min = stat_min + scaling_factor * level
-    calculated_stat_max = stat_max + scaling_factor * level
-
-    {calculated_stat_min, calculated_stat_max}
-  end
-
-  defp stat_name(stat) when is_atom(stat) do
-    Atom.to_string(stat) |> String.capitalize()
+    def to_stat_block(%Prefix{} = prefix) do
+      prefix
+      |> Map.from_struct()
+    end
   end
 end

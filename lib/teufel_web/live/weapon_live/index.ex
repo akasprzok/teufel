@@ -3,18 +3,18 @@ defmodule TeufelWeb.WeaponLive.Index do
 
   require Logger
 
-  alias Teufel.Entity
+  alias Teufel.Entities
   alias Teufel.Game.WeaponGen
 
   @impl true
   def mount(_params, _session, socket) do
-    weapon = WeaponGen.generate() |> Entity.to_display()
+    weapon = WeaponGen.generate() |> Entities.to_display_block()
     {:ok, assign(socket, :weapon, weapon)}
   end
 
   @impl true
   def handle_event("generate", _, socket) do
-    weapon = WeaponGen.generate() |> Entity.to_display()
+    weapon = WeaponGen.generate() |> Entities.to_display_block()
     {:noreply, assign(socket, :weapon, weapon)}
   end
 end

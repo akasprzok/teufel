@@ -8,7 +8,7 @@ defmodule Teufel.Item.Rarity do
           weight: integer()
         }
 
-  defstruct name: "",
+  defstruct name: "Ordinary",
             weight: 10
 
   def from_map(map) when is_map(map) do

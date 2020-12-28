@@ -2,55 +2,43 @@ use Mix.Config
 
 alias Teufel.Weapon.{Prefix, Suffix}
 
-default_weapon = %{
-  type: :sword,
-  name: "Sword",
-  level: 0,
-  attack_min: 2,
-  attack_max: 5,
-  scaling_factor: 1.2
-}
-
-default_prefix = %{
-  name: "Fiery",
-  stat_min: 1,
-  stat_max: 2,
-  stat: :fire_damage
-}
-
-default_suffix = %{
-  name: "Dexterity",
-  stat_min: 1,
-  stat_max: 2,
-  stat: :dexterity
-}
-
-default_rarity = %{
-  name: "",
-  weight: 10
-}
-
 config :teufel, :weapons,
   weapons: [
-    default_weapon,
-    %{default_weapon | type: :axe, name: "Axe", attack_min: 3, attack_max: 6},
-    %{default_weapon | type: :polearm, name: "Polearm", attack_min: 1, attack_max: 5},
-    %{default_weapon | type: :bow, name: "Bow", attack_min: 2, attack_max: 4}
+    %{
+      name: "Sword",
+      attack: {:slashing, 2..5},
+      scaling_factor: 1.2
+    },
+    %{
+      name: "Axe",
+      attack: {:slashing, 3 - 6},
+      scaling_factor: 1.2
+    },
+    %{
+      name: "Polearm",
+      attack: {:piercing, 1..5},
+      scaling_factor: 1.2
+    },
+    %{
+      name: "Bow",
+      attack: {:piercing, 2..4},
+      scaling_factor: 1.2
+    }
   ],
   prefixes: [
-    default_prefix,
-    %{default_prefix | name: "Chilling", stat: :ice_damage}
+    %{name: "Fiery", stat: {:fire_damage, 2..4}},
+    %{name: "Chilling", stat: {:ice_damage, 2..4}}
   ],
   suffixes: [
-    default_suffix,
-    %{default_suffix | name: "Strength", stat: :strength}
+    %{name: "Dexterity", stat: {:dexterity, 1..2}},
+    %{name: "Strength", stat: {:strength, 1..2}}
   ],
   rarities: [
-    %{default_rarity | name: "Broken", weight: 1},
-    %{default_rarity | name: "Shabby", weight: 2},
-    %{default_rarity | name: "Unassuming", weight: 5},
-    default_rarity,
-    %{default_rarity | name: "Generic", weight: 5},
-    %{default_rarity | name: "Rad", weight: 2},
-    %{default_rarity | name: "Epic", weight: 1}
+    %{name: "Broken", weight: 1},
+    %{name: "Shabby", weight: 2},
+    %{name: "Unassuming", weight: 5},
+    %{name: "Ordinary", weight: 10},
+    %{name: "Generic", weight: 5},
+    %{name: "Rad", weight: 2},
+    %{name: "Epic", weight: 1}
   ]

@@ -96,9 +96,9 @@ defmodule Teufel.Game.WeaponGen do
     Enum.random(weapons)
   end
 
-  defp fetch_weapon(weapons, weapon_type) do
+  defp fetch_weapon(weapons, weapon_name) do
     weapons
-    |> Enum.filter(fn %{type: type} -> type == weapon_type end)
+    |> Enum.filter(fn %{name: name} -> name == weapon_name end)
     |> List.first()
   end
 

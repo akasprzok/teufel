@@ -6,23 +6,21 @@ defmodule Teufel.Weapon do
   alias Teufel.Weapon.{Prefix, Suffix}
   alias Teufel.Item.Rarity
 
+  @type(attack_type :: :piercing, :blunt)
+
   @type t :: %__MODULE__{
           name: String.t(),
-          type: atom(),
           level: pos_integer,
-          attack_min: float(),
-          attack_max: float(),
+          attack: {attack_type(), Range.t()},
           scaling_factor: float(),
           prefix: nil | Prefix.t(),
           suffix: nil | Suffix.t(),
           rarity: Rarity.t()
         }
 
-  defstruct name: "",
+  defstruct name: "Broken Sword",
             level: 0,
-            type: :weapon,
-            attack_min: 1,
-            attack_max: 2,
+            attack: {:piercing, 1..2},
             scaling_factor: 1,
             prefix: nil,
             suffix: nil,
@@ -32,36 +30,14 @@ defmodule Teufel.Weapon do
     struct(%__MODULE__{}, map)
   end
 
-  @spec calculate_attack(t()) :: {float(), float()}
-  def calculate_attack(%__MODULE__{
-        attack_min: attack_min,
-        attack_max: attack_max,
-        scaling_factor: scaling_factor,
-        level: level
-      }) do
-    calculated_attack_min = attack_min + scaling_factor * level
-    calculated_attack_max = attack_max + scaling_factor * level
-
-    {calculated_attack_min, calculated_attack_max}
-  end
-
   defimpl Teufel.Entity do
     alias Teufel.Weapon
 
-    def to_display(
-          %Weapon{
-            level: level,
-            suffix: suffix,
-            scaling_factor: scaling_factor
-          } = weapon
-        ) do
-      {calculated_attack_min, calculated_attack_max} = Weapon.calculate_attack(weapon)
-
-      [
-        {"Name", to_name(weapon)},
-        {"Level", level},
-        {"Attack", "#{calculated_attack_min}-#{calculated_attack_max}"}
-      ] ++ Suffix.to_display(suffix, scaling_factor, level)
+    def to_stat_block(%Weapon{} = weapon) do
+      weapon
+      |> Map.from_struct()
+      |> Map.put(:name, to_name(weapon))
+      |> Map.drop([:prefix, :suffix, :rarity])
     end
 
     defp to_name(%Weapon{rarity: rarity, prefix: prefix, name: name, suffix: suffix}) do
