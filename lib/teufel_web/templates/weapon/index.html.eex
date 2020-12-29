@@ -3,18 +3,17 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Attack</th>
-      <th>Scaling Factor</th>
-      <th></th>
+      <%= for header <- @headers do %>
+      <th><%= header %></th>
+       <% end %>
     </tr>
   </thead>
   <tbody>
-<%= for weapon <- @weapon_config.weapons do %>
+<%= for weapon <- @weapon_config do %>
     <tr>
-      <td><%= weapon.name %></td>
-      <td><%= weapon.scaling_factor %></td>
-      <td><span><%= link "Generate", to: Routes.weapon_index_path(@conn, :new) %>
+      <%= for {_stat, value} <- weapon  do %>
+      <td><%= value %></td>
+      <% end %>
     </tr>
 <% end %>
   </tbody>

@@ -15,7 +15,7 @@ defmodule Teufel.Weapon do
           scaling_factor: float(),
           prefix: nil | Prefix.t(),
           suffix: nil | Suffix.t(),
-          rarity: Rarity.t()
+          rarity: nil | Rarity.t()
         }
 
   defstruct name: "Broken Sword",
@@ -24,7 +24,7 @@ defmodule Teufel.Weapon do
             scaling_factor: 1,
             prefix: nil,
             suffix: nil,
-            rarity: %Rarity{}
+            rarity: nil
 
   def from_map(map) when is_map(map) do
     struct(%__MODULE__{}, map)

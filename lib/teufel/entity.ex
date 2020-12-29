@@ -12,7 +12,7 @@ defprotocol Teufel.Entity do
 
   Legibility should be paramount. Instead of separate values for, i.e., attack_min and attack_max, the tuple {"Attack", "15-25"} should be substituted.
   """
-  @spec to_stat_block(term()) :: display_block()
+  @spec to_stat_block(term()) :: stat_block()
   def to_stat_block(entity)
 end
 
@@ -28,7 +28,7 @@ defmodule Teufel.Entities do
   end
 
   defp stat_to_string({stat, {value_type, value}}) do
-    {to_string(stat), "#{to_string(value)} #{to_string(value_type)}"}
+    {stat_to_string(stat), "#{to_string(value)} #{to_string(value_type)}"}
   end
 
   defp stat_to_string({stat, value}) do
@@ -36,7 +36,7 @@ defmodule Teufel.Entities do
   end
 
   defp stat_to_string(atom) when is_atom(atom) do
-    atom |> Atom.to_string() |> String.capitalize()
+    atom |> Atom.to_string() |> Recase.to_title()
   end
 
   defp stat_to_string(term) do

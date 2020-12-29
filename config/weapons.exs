@@ -1,7 +1,5 @@
 use Mix.Config
 
-alias Teufel.Weapon.{Prefix, Suffix}
-
 config :teufel, :weapons,
   weapons: [
     %{
@@ -11,7 +9,7 @@ config :teufel, :weapons,
     },
     %{
       name: "Axe",
-      attack: {:slashing, 3 - 6},
+      attack: {:slashing, 3..6},
       scaling_factor: 1.2
     },
     %{

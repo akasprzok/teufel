@@ -10,9 +10,11 @@ defmodule Teufel.Game do
   @impl true
   def init(_arg) do
     children = [
-      WeaponGen
+      WeaponGen,
+      {Registry, keys: :unique, name: Teufel.Game.InstanceRegistry},
+      {DynamicSupervisor, strategy: :one_for_one, name: Teufel.Game.InstanceSupervisor}
     ]
 
-    Supervisor.init(children, strategy: :one_for_one)
+    Supervisor.init(children, strategy: :one_for_one, name: Teufel.Game.Supervisor)
   end
 end
